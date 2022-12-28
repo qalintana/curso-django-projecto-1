@@ -1,4 +1,4 @@
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from recipes.models import Recipe
@@ -29,8 +29,12 @@ def category(request: HttpRequest, category_id: int) -> HttpResponse:
     recipes = get_list_or_404(Recipe.objects.filter(
         category__id=category_id, is_published=True).order_by('-id'))
 
-    return render(request, 'recipes/pages/category.html', status=200,
-                  context={'recipes': recipes, 'title': f'{recipes[0].category.name} - Category'})
+    return render(
+        request, 'recipes/pages/category.html',
+        status=200,
+        context={'recipes': recipes,
+                 'title': f'{recipes[0].category.name} - Category'}
+    )
 
 
 def recipe(request: HttpRequest, id: int) -> HttpResponse:
@@ -40,5 +44,8 @@ def recipe(request: HttpRequest, id: int) -> HttpResponse:
 
     recipe = get_object_or_404(Recipe, pk=id, is_published=True)
 
-    return render(request, 'recipes/pages/recipe-view.html',
-                  status=200, context={'recipe': recipe, 'is_detail_page': True})
+    return render(
+        request, 'recipes/pages/recipe-view.html',
+        status=200,
+        context={'recipe': recipe, 'is_detail_page': True}
+    )
