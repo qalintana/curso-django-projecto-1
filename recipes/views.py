@@ -33,5 +33,9 @@ def category(request: HttpRequest, category_id: int) -> HttpResponse:
 
 
 def recipe(request: HttpRequest, id: int) -> HttpResponse:
+
+    recipe = Recipe.objects.filter(
+        pk=id, is_published=True).order_by('-id').first()
+
     return render(request, 'recipes/pages/recipe-view.html',
-                  status=200, context={'recipe': make_recipe(), 'is_detail_page': True})
+                  status=200, context={'recipe': recipe, 'is_detail_page': True})
