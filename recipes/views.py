@@ -1,13 +1,14 @@
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
-from __localcode.main import make_recipe
 from recipes.models import Recipe
 
 
 # Create your views here.
 def home(request: HttpRequest) -> HttpResponse:
-    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+    recipes = Recipe.objects.filter(
+        is_published=True).order_by('-id')
+
     return render(request, 'recipes/pages/home.html', status=200,
                   context={'recipes': recipes})
 
@@ -34,8 +35,10 @@ def category(request: HttpRequest, category_id: int) -> HttpResponse:
 
 def recipe(request: HttpRequest, id: int) -> HttpResponse:
 
-    recipe = Recipe.objects.filter(
-        pk=id, is_published=True).order_by('-id').first()
+    # recipe = Recipe.objects.filter(
+    #     pk=id, is_published=True).order_by('-id').first()
+
+    recipe = get_object_or_404(Recipe, pk=id, is_published=True)
 
     return render(request, 'recipes/pages/recipe-view.html',
                   status=200, context={'recipe': recipe, 'is_detail_page': True})
