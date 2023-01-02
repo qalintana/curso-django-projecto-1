@@ -1,7 +1,7 @@
 <div class="search-container">
     <div class="container">
-        <form class="search-form">
-            <input type="search" class="search-input" name="search">
+        <form class="search-form" method="get" action="{% url 'recipes:search' %}">
+            <input type="search" class="search-input" name="q" required value="{{ search_term }}">
             <button type="submit" class="search-button"> <i class="fas fa-search"></i></button>
         </form>
     </div>

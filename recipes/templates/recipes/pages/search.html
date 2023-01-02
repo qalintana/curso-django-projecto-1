@@ -1,8 +1,13 @@
 {% extends 'global/base.html' %}
 
-{% block title %}Home |{% endblock title %}
+
+{% block title %}{{ page_title }} |{% endblock title %}
 
 {% block content %}
+
+    {% comment %} <div class="center">
+    <h2>O usuário pesquisou por {{ search_term  }}</h2>
+    </div> {% endcomment %}
   <div class="main-content container main-content-list">
 
     {% for recipe in recipes %}
