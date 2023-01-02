@@ -25,7 +25,8 @@ class Recipe(models.Model):
     cover = models.ImageField(
         upload_to='recipes/cover/%Y/%m/%d', blank=True, default='')
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+        Category, on_delete=models.SET_NULL, null=True, blank=True,
+        default=None)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True)
 
